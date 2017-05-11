@@ -53,6 +53,11 @@
 % An enumeration package for flexible enumeration
 \usepackage{enumitem}
 
+% For fitting tables into the page width
+\usepackage{makecell}
+\renewcommand{\theadalign}{cc} % Centering and at the middle
+\renewcommand{\theadfont}{\bfseries} % Bold table headers
+
 % Helvetica Sans-serif fonts
 \usepackage{helvet}
 \usepackage{sectsty}
@@ -61,18 +66,16 @@
 \subsectionfont{\fontsize{16pt}{19.2pt}\sffamily\bfseries}
 \subsubsectionfont{\fontsize{14pt}{16.8pt}\sffamily\bfseries}
 
-
 % Courier monospace font
 \usepackage{courier}
 
-% Table of contents dot fill
+% Table of contents dot fill, sans serif header and name change
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \tocloftpagestyle{fancy}
 \renewcommand{\cfttoctitlefont}{\sffamily\Large\bfseries}
 \setlength{\cftbeforesecskip}{6pt}
-
-
+\renewcommand{\contentsname}{Table of Contents}
 
 % Links, both local and external
 \usepackage{hyperref}
@@ -87,7 +90,6 @@
 
 % Figure captions are bold
 \usepackage[labelfont=bf,font=sf]{caption}
-
 
 % Pseudocode from algorithmicx package
 \usepackage{algorithmicx}
@@ -157,20 +159,84 @@
 % For the ones who doesn't know: 1,2,..9 called West Arabic numbers
 \pagenumbering{arabic}
 \section{Introduction}
+In November 1936 Alan Turing published his groundbreaking paper which creates foundations of computer science \cite{turing1937computability}. It was the Big-Bang of the computer science that created a new universe from dusty works of his ancestors.
 \newpage
 \section{Project Description and Plan}
+This is the best graduation project ever. In Figure \ref{fig:ganttdiagram} you can see the Gantt diagram of the project.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{gantt_diagram}
+    \caption{The Gantt diagram of the project}
+    \label{fig:ganttdiagram}
+\end{figure}
+
 \newpage
 \section{Background}
+A long long section with many papers.
+
 \newpage
 \section{Analysis and Modeling}
+After long hours of studying we decided. A* is the best algorithm for searching on the graphs.
+
 \newpage
 \section{Design and Implementation}
+We implemented the depth first search algorithm as shown in Algorithm \ref{algo:dfs}.
+\begin{algorithm}[H]
+    \caption{The depth first search algorithm}
+    \label{algo:dfs}
+    \begin{algorithmic}[1]
+        \State \textbf{Graph} $G$
+        \State \textbf{Node} $start$
+        \Function{Depth-First-Search}{$G$, $start$}
+        \State \textbf{Tree} $ T $ \Comment The resulting search tree
+        \State \textbf{Stack} $ S $ \Comment An empty stack
+        \State \textbf{Set} $ V $ \Comment An empty set of visited nodes
+        \State \Call{set-root}{$ T $,$ current $}
+        \State \Call{push}{$ S $,$ start $}
+        \While{\Call{not-empty}{S}}
+        \State $current \gets$ \Call{pop}{$ S $}
+        \If{\textbf{not} \Call{Contains}{$ V $, $ current $} }
+        \State \Call{insert}{$ V $, $ current $}
+        \ForAll{$ n $ : \Call{neighbors}{$ current $} }
+        \State \Call{push}{$ S $, $ n $}
+        \State \Call{insert-sub-node}{$ T $, $ current $, $ n $}
+        \Comment Insert node to subtree of $ current $
+        \EndFor
+        \EndIf
+        \EndWhile
+        \State \Return $ T $
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 \newpage
 \section{Testing and Evaluation}
+We compared the performance of the graph search algorithms. The results can be seen in the Table \ref{tbl:results}.
+
+\begin{table}[H]
+    \caption{Performance test results of the graph search algorithms}
+    \label{tbl:results}
+    \centering
+    \begin{tabular}{|c|r|r|r|} 
+        \hline 
+        \thead{Algorithm} & \thead{Number of \\ Generated Nodes} & \thead{Number of \\ Nodes Expanded} & \thead{Max Number of \\ Nodes in The Frontier} \\ 
+        \hline 
+        BFS &  77480 & 6340 & 71142 \\ 
+        \hline 
+        DFS & 820 & 88 & 760 \\ 
+        \hline 
+        A* & 376 & 33 & 338 \\ 
+        \hline 
+    \end{tabular}
+\end{table}
+
 \newpage
-\section{Conclusion and Recommendations}
+\section{Conclusion and Future Work}
+We tested algorithms and decided that future is bright.
 
-%\bibliography{references.bib} % After creating a references.bib file uncomment
-
+\newpage
+\bibliographystyle{IEEEtran}
+\bibliography{references.bib} 
 
 \end{document}
