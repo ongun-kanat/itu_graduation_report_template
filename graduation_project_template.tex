@@ -36,7 +36,7 @@
 % If document is in Turkish then use
 % \usepackage[turkish]{babel}
 % or for both
-% \usepackage[turkish,american]{babel}
+\usepackage[turkish,american]{babel}
 
 % Indent at section beginnings
 %\usepackage{indentfirst}
@@ -44,19 +44,12 @@
 % utf-8 support
 \usepackage[utf8]{inputenc}
 
-% Graphics for PDFTeX
-\usepackage[pdftex]{graphicx}
 
 % Figure placement
 \usepackage{float}
 
 % An enumeration package for flexible enumeration
 \usepackage{enumitem}
-
-% For fitting tables into the page width
-\usepackage{makecell}
-\renewcommand{\theadalign}{cc} % Centering and at the middle
-\renewcommand{\theadfont}{\bfseries} % Bold table headers
 
 % Helvetica Sans-serif fonts
 \usepackage{helvet}
@@ -66,30 +59,34 @@
 \subsectionfont{\fontsize{16pt}{19.2pt}\sffamily\bfseries}
 \subsubsectionfont{\fontsize{14pt}{16.8pt}\sffamily\bfseries}
 
+% Paragraph spacings
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt}
+
 % Courier monospace font
 \usepackage{courier}
 
-% Table of contents dot fill, sans serif header and name change
+% Table of contents dot fill
 \usepackage{tocloft}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \tocloftpagestyle{fancy}
 \renewcommand{\cfttoctitlefont}{\sffamily\Large\bfseries}
 \setlength{\cftbeforesecskip}{6pt}
-\renewcommand{\contentsname}{Table of Contents}
 
 % Links, both local and external
 \usepackage{hyperref}
 \hypersetup{
-	unicode=true,
-	colorlinks=true,
-	urlcolor=blue,
-	citecolor=black,
-	menucolor=black,
-	linkcolor=black
+    unicode=true,
+    colorlinks=true,
+    urlcolor=blue,
+    citecolor=black,
+    menucolor=black,
+    linkcolor=black
 }
 
 % Figure captions are bold
 \usepackage[labelfont=bf,font=sf]{caption}
+
 
 % Pseudocode from algorithmicx package
 \usepackage{algorithmicx}
@@ -97,45 +94,84 @@
 \usepackage[section,boxed]{algorithm}
 \captionsetup[algorithm]{labelfont=bf,font=sf,justification=centering,position=top}
 
+% For fitting tables into the page width
+\usepackage{makecell}
+\renewcommand{\theadalign}{cc} % Centering and at the middle
+\renewcommand{\theadfont}{\bfseries} % Bold table headers
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
 % Listings for implemented code
 \usepackage{listings}
 \lstset{basicstyle=\ttfamily,frame=lines,tabsize=4}
 \renewcommand{\lstlistingname}{Listing}
+\lstset{
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    escapeinside={\%*}{*)},
+    frame=single,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    xleftmargin=8pt,
+}
 
 % A powerful math notation package
 \usepackage{amsmath}
 
+% Override here with the names
+\newcommand{\thetitle}{Project Title}
+\newcommand{\theturkishtitle}{Proje Başlığı}
+\newcommand{\theauthor}{Besim Ongun Kanat}
+\newcommand{\thedate}{June 2017}
+\newcommand{\theturkishdate}{Haziran 2017}
+
+\usepackage{color}
+\definecolor{darkgreen}{RGB}{0, 128, ,0}
+\newcommand{\fixme}[1]{{\color{red}\bfseries\sffamily (FIXME: #1)}}
+\newcommand{\suggest}[1]{{\color{darkgreen}\bfseries\sffamily (SUGGESTION: #1)}}
+\newcommand{\ask}[1]{{\color{blue}\bfseries\sffamily (QUESTION: #1)}}
+
+\newcommand\Includegraphics{\expandafter\includegraphics\expandafter} 
+
 % Title, author and date info
-\title{Graduation Project}
-\author{Besim Ongun Kanat}
-\date{June 2017}
+\title{\thetitle}
+\author{\theauthor}
+\date{\thedate}
+
+% Graphics for PDFTeX
+\usepackage{graphicx}
+
 
 \begin{document}
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
 \numberwithin{lstlisting}{section}
+\shorthandoff{=}
+
 
 \begin{titlepage}
     \bfseries % Make all text bold in this environment
     \sffamily % Similarly select sans-serif font
-	\begin{center}
-		\LARGE{\textbf{ISTANBUL TECHNICAL UNIVERSITY \\ 
+    \begin{center}
+        \LARGE{\textbf{ISTANBUL TECHNICAL UNIVERSITY \\ 
                FACULTY OF COMPUTER AND INFORMATICS} } \\
-		\vspace{5.5cm}
-		\LARGE{PROJECT TITLE}  \\
-		\vspace{4.5cm}
-		\Large{Graduation Project} \\
+        \vspace{5.5cm}
+        \LARGE{\thetitle}  \\
+        \vspace{4.5cm}
+        \Large{Graduation Project} \\
         \vspace{0.5cm}
-		\Large{Besim Ongun Kanat} \\
-     	\Large{150120047} \\
+        \Large{\theauthor} \\
+        \Large{150120047} \\
         \vspace{4cm}
         \large{Department: Computer Engineering} \\
         \large{Division: Computer Engineering} \\
         \vspace{1.5cm}
         \large{Advisor: Assoc. Prof. Dr. Sanem Sarıel} \\
-		\vspace{\fill} % Fill out until the page end
-		\large{\normalfont \sffamily June 2017}
-	\end{center}
+        \vspace{\fill} % Fill out until the page end
+        \large{\normalfont \sffamily \thedate}
+    \end{center}
 \end{titlepage}
 
 \pagenumbering{Roman} % Capital roman numerals as page numbers
@@ -143,24 +179,23 @@
 \section*{Özgünlük Bildirisi}
 \begin{enumerate}
     \item Bu çalışmada, başka kaynaklardan yapılan tüm alıntıların, ilgili kaynaklar \\ referans gösterilerek açıkça belirtildiğini,
-    \item Alıntılar dışındaki bölümlerin, özellikle projenin ana konusunu oluşturan teorik çalışmaların ve yazılım/donanımın benim tarafımdan yapıldığını
+    \item Alıntılar dışındaki bölümlerin, özellikle projenin ana konusunu oluşturan teorik çalışmaların ve yazılımın/donanımın tarafımdan yapıldığını
     bildiririm.
 \end{enumerate}
 \vspace{1em}
-İstanbul, TARİH
-\vspace{3em}\\Besim Ongun Kanat
+İstanbul, \theturkishdate
+\vspace{3em}\\ \theauthor
 
 \newpage
 \section*{Acknowledgments}
 
 \newpage
-\section*{English Project Title}
-\centerline{\large\bfseries (Summary)}
-
+\section*{\centering\thetitle}
+\centerline{\fontsize{16pt}{21.6pt}\sffamily\bfseries (SUMMARY)}
 
 \newpage
-\section*{Türkçe Proje Başlığı}
-\centerline{\large\bfseries (Özet)}
+\section*{\centering\theturkishtitle}
+\centerline{\fontsize{16pt}{21.6pt}\sffamily\bfseries (ÖZET)}
 
 \newpage
 \tableofcontents
